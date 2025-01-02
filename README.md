@@ -60,6 +60,8 @@ For more information on using the Angular CLI, including detailed command refere
 
 ## TODO
 
-- [ ] 追加のダイアログ
+- [x] 追加のダイアログ
+- [ ] URLコピーしたときにお知らせ
+- [ ] queryパースエラーのハンドリング
 - [ ] SPごとにグルーピング
 - [ ] SP フィルタ

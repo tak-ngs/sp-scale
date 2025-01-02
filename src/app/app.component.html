@@ -2,7 +2,11 @@
   <app-scale [stories]="stories()" />
 </main>
 <div class="fab-container">
-  <button mat-mini-fab><mat-icon>add</mat-icon></button>
+  <button
+    mat-mini-fab
+    (click)="openAddDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
   <button
     mat-fab
     extended
