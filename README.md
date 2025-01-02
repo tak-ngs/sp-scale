@@ -61,6 +61,10 @@ For more information on using the Angular CLI, including detailed command refere
 ## TODO
 
 - [x] 追加のダイアログ
+- [x] dark theme ready
+- [ ] グリッド幅をもっとかんたんに変えられるように
+- [ ] dark theme 切り替え
+- [ ] 日本語化
 - [ ] URLコピーしたときにお知らせ
 - [ ] queryパースエラーのハンドリング
 - [ ] SPごとにグルーピング

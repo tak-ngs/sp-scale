@@ -7,7 +7,7 @@
 
 .header {
   display: grid;
-  grid-template-columns: repeat(100, 100px);
+  grid-template-columns: repeat(25, 100px);
   .point {
     box-sizing: border-box;
     display: inline-block;
@@ -16,6 +16,7 @@
     transform: translateX(-50%);
     border-radius: 50%;
     background: var(--mat-sys-surface-container);
+    color: var(--mat-sys-on-surface);
     font-size: 2rem;
     line-height: 1.5;
     text-align: center;
@@ -26,7 +27,7 @@
 .body {
   display: grid;
   position: relative;
-  grid-template-columns: repeat(100, 100px);
+  grid-template-columns: repeat(25, 100px);
   flex-grow: 1;
   width: fit-content;
   .guide {

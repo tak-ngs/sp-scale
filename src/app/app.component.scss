@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+
 :host {
   display: block;
   height: 100%;
@@ -22,6 +24,11 @@ main {
   align-items: flex-end;
   gap: 16px;
   button[extended] {
-    --mat-sys-primary-container: var(--mat-sys-primary-fixed-dim);
+    @include mat.fab-overrides(
+      (
+        container-color: var(--mat-sys-secondary-container),
+        foreground-color: var(--mat-sys-on-secondary-container)
+      )
+    );
   }
 }
