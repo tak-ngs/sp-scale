@@ -1,3 +1,13 @@
 <main>
-  <app-scale />
+  <app-scale [stories]="stories()" />
 </main>
+<div class="fab-container">
+  <button mat-mini-fab><mat-icon>add</mat-icon></button>
+  <button
+    mat-fab
+    extended
+    (click)="copyURL()">
+    <mat-icon>link</mat-icon>
+    Get URL
+  </button>
+</div>

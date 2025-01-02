@@ -12,3 +12,16 @@ main {
     flex: 1 1 auto;
   }
 }
+
+.fab-container {
+  display: flex;
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+  button[extended] {
+    --mat-sys-primary-container: var(--mat-sys-tertiary-container);
+  }
+}

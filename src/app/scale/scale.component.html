@@ -9,15 +9,16 @@
 </div>
 <div
   class="body"
+  [style]="{ height: (stories().at(-1)?.y ?? 0) + 200 + 'px' }"
   #body>
   @for (guide of guidelines; track $index) {
     <div class="guide"></div>
   }
-  @for (story of stories; track story) {
+  @for (story of stories(); track story) {
     <app-story-card
       [data]="story"
       [style]="{
-      left: ((story.correctedStoryPoint ?? story.storyPoint) * 100) + 'px',
+      left: ((story.sp ?? story.orgSp) * 100) + 'px',
       top: story.y + 'px',
     }"
       cdkDrag
