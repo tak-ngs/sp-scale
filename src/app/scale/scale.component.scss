@@ -15,7 +15,7 @@
     height: 3rem;
     transform: translateX(-50%);
     border-radius: 50%;
-    background: #eee;
+    background: var(--mat-sys-surface-container);
     font-size: 2rem;
     line-height: 1.5;
     text-align: center;
@@ -28,9 +28,10 @@
   position: relative;
   grid-template-columns: repeat(100, 100px);
   flex-grow: 1;
+  width: fit-content;
   .guide {
     box-sizing: border-box;
     height: 100%;
-    border-left: 1px #cccccc solid;
+    border-left: 1px var(--mat-sys-outline-variant) solid;
   }
 }

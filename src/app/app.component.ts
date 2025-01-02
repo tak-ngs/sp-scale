@@ -25,6 +25,7 @@ export class AppComponent {
         return JSON.parse(q.get('d') ?? '[]');
         // return this.stories;
       }),
+      // TODO Error Handling
       tap(s => console.log(s)),
     ),
     { initialValue: [] },

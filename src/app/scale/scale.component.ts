@@ -1,4 +1,4 @@
-import { CdkDragEnd, DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragEnd, DragDropModule, DragRef } from '@angular/cdk/drag-drop';
 import { Component, input } from '@angular/core';
 import { Story } from '../story';
 import { StoryCardComponent } from '../story-card/story-card.component';
@@ -33,23 +33,18 @@ export class ScaleComponent {
     e.source.data.sp = (e.source.data.sp ?? e.source.data.orgSp)
       + (e.distance.x / 100);
     e.source.data.y = (e.source.data.y ?? 0) + e.distance.y;
-
+    this.stories().sort((a, b) => (a.y ?? 0) - (b.y ?? 0));
+    applyY(this.stories());
     e.source.reset();
     setTimeout(() => {
-      e.source.element.nativeElement.style.transition = 'all .1s ease-out';
       e.source.data.sp = correctedStoryPoint;
     }, 0);
-    setTimeout(() => {
-      e.source.element.nativeElement.style.transition = '';
-    }, 100);
   }
 }
 
 function applyY(stories: Story[]): Story[] {
   return stories.map((s, i) => {
-    s.y = (s.y ?? 0) > (stories[i - 1]?.y ?? 0) + 35
-      ? s.y
-      : (stories[i - 1]?.y ?? -36) + 36;
+    s.y = (stories[i - 1]?.y ?? -36) + 36;
     // s.sp = Math.round(Math.random() * 13);
     return s;
   });
