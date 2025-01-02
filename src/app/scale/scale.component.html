@@ -1,11 +1,15 @@
 <div class="header">
   @for (scale of scales; track $index) {
-    <div class="point" [style]="{ 'grid-column': (scale + 1) }">
+    <div
+      class="point"
+      [style]="{ 'grid-column': (scale + 1) }">
       {{ scale }}
     </div>
   }
 </div>
-<div class="body" #body>
+<div
+  class="body"
+  #body>
   @for (guide of guidelines; track $index) {
     <div class="guide"></div>
   }

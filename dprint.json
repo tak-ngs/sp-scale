@@ -1,6 +1,7 @@
 {
   "typescript": {
-    "quoteStyle": "preferSingle"
+    "quoteStyle": "preferSingle",
+    "module.sortImportDeclarations": "caseSensitive"
   },
   "json": {
   },
@@ -12,6 +13,9 @@
     "declarationOrder": "smacss"
   },
   "markup": {
+    "component.selfClosing": true,
+    "closingBracketSameLine": true,
+    "maxAttrsPerLine": 1
   },
   "yaml": {
   },
