@@ -5,11 +5,22 @@
     </div>
   }
 </div>
-<div class="body">
+<div class="body" #body>
   @for (guide of guidelines; track $index) {
     <div class="guide"></div>
   }
   @for (story of stories; track story) {
-    <app-story-card [data]="story" draggable="true"></app-story-card>
+    <app-story-card
+      [data]="story"
+      [style]="{
+      left: ((story.correctedStoryPoint ?? story.storyPoint) * 100) + 'px',
+      top: story.y + 'px',
+    }"
+      cdkDrag
+      [cdkDragData]="story"
+      [cdkDragBoundary]="body"
+      [cdkDragConstrainPosition]=""
+      (cdkDragEnded)="onDroped($event)"
+    />
   }
 </div>

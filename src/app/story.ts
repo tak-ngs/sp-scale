@@ -4,4 +4,5 @@ export interface Story {
   correctedStoryPoint?: number;
   color?: string;
   link?: string;
+  y?: number;
 }
