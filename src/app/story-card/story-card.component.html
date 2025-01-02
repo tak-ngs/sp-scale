@@ -1,3 +1,25 @@
-<div class="handle" cdkDragHandle></div>
-<p>story-card works!</p>
-{{ data().title }}
+<div
+  class="handle"
+  cdkDragHandle>
+</div>
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>
+      @if (data().link) {
+        <a
+          [href]="data().link"
+          target="_blank"
+          rel="noopener">{{ data().title }}</a>
+      } @else {
+        {{ data().title }}
+      }
+    </mat-card-title>
+    <mat-card-subtitle>
+      SP: {{ data().correctedStoryPoint ?? data().storyPoint }}
+      <span style="opacity: 0.5; float: right; padding-left: 8px">
+        original SP: {{ data().storyPoint }}
+      </span>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content> </mat-card-content>
+</mat-card>

@@ -2,19 +2,35 @@
   position: absolute;
   min-width: 120px;
   max-width: 240px;
-  min-height: 120px;
   max-height: 240px;
-  border: #999 1px solid;
-  background: #eee;
+  --mat-sys-title-large-size: 12px;
+  --mat-sys-title-medium-size: 10px;
+  z-index: 0;
+  margin-left: -12px;
+  &:hover {
+    z-index: 1;
+  }
+}
+:host-context(.cdk-drag-dragging) {
+  z-index: 1;
+  mat-card {
+    box-shadow: var(--mat-sys-level2);
+  }
 }
 
 .handle {
   display: flex;
+  z-index: 1;
   position: absolute;
   aspect-ratio: 1/1;
-  width: 32px;
-  transform: translate(-50%, -50%);
+  width: 24px;
   border-radius: 50%;
-  background-color: #eb972a;
+  background-color: var(--mat-sys-primary-container);
   cursor: move;
+}
+mat-card-title {
+  a {
+    color: var(--mat-sys-primary);
+    text-decoration: none;
+  }
 }

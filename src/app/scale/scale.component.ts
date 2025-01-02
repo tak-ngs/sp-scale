@@ -26,7 +26,7 @@ export class ScaleComponent {
 
   stories: Story[] = [
     {
-      title: 'Foo bar',
+      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
       storyPoint: 3,
       correctedStoryPoint: 4,
       link: 'https://ja.wikipedia.org/wiki/Foobar',
@@ -34,7 +34,7 @@ export class ScaleComponent {
     {
       title: 'ほげぴよほげぴよほげぴよほげぴよほげぴよ',
       storyPoint: 3,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
+      // link: 'https://ja.wikipedia.org/wiki/Foobar',
     },
   ];
 
