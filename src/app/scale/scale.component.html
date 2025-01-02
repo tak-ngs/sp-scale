@@ -1,10 +1,15 @@
 <div class="header">
   @for (scale of scales; track $index) {
-    <span [style]="{ left: (scale * 100) + 'px' }">{{ scale }}</span>
+    <div class="point" [style]="{ 'grid-column': (scale + 1) }">
+      {{ scale }}
+    </div>
   }
 </div>
 <div class="body">
   @for (guide of guidelines; track $index) {
     <div class="guide"></div>
+  }
+  @for (story of stories; track story) {
+    <app-story-card [data]="story" draggable="true"></app-story-card>
   }
 </div>

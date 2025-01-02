@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScaleComponent } from './scale.component';
+import { StoryCardComponent } from './story-card.component';
 
-describe('ScaleComponent', () => {
-  let component: ScaleComponent;
-  let fixture: ComponentFixture<ScaleComponent>;
+describe('StoryCardComponent', () => {
+  let component: StoryCardComponent;
+  let fixture: ComponentFixture<StoryCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ScaleComponent],
+      imports: [StoryCardComponent],
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(ScaleComponent);
+    fixture = TestBed.createComponent(StoryCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
