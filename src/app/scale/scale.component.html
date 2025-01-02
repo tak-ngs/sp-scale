@@ -18,7 +18,7 @@
     <app-story-card
       [data]="story"
       [style]="{
-      left: ((story.sp ?? story.orgSp) * 100) + 'px',
+      left: ((story.sp ?? story.orgSp) * gridWidth) + 'px',
       top: story.y + 'px',
     }"
       cdkDrag

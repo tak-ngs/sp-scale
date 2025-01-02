@@ -7,7 +7,7 @@
 
 .header {
   display: grid;
-  grid-template-columns: repeat(25, 100px);
+  grid-template-columns: repeat(25, var(--grid-width));
   .point {
     box-sizing: border-box;
     display: inline-block;
@@ -27,7 +27,7 @@
 .body {
   display: grid;
   position: relative;
-  grid-template-columns: repeat(25, 100px);
+  grid-template-columns: repeat(25, var(--grid-width));
   flex-grow: 1;
   width: fit-content;
   .guide {

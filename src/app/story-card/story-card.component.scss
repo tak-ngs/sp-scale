@@ -1,8 +1,7 @@
 :host {
   position: absolute;
+  width: calc(var(--grid-width) * 2);
   min-width: 120px;
-  max-width: 220px;
-  max-height: 240px;
   --mat-sys-title-large-size: 12px;
   --mat-sys-title-medium-size: 10px;
   z-index: 0;

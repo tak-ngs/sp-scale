@@ -1,5 +1,6 @@
 import { CdkDrag, CdkDragEnd, DragDropModule, DragRef } from '@angular/cdk/drag-drop';
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { GRID_WIDTH_PX } from '../app.config';
 import { Story } from '../story';
 import { StoryCardComponent } from '../story-card/story-card.component';
 
@@ -23,15 +24,16 @@ export class ScaleComponent {
     21,
   ];
   guidelines = Array(25);
+  gridWidth = inject(GRID_WIDTH_PX);
 
   stories = input.required<Story[], Story[]>({ transform: applyY });
 
   onDroped(e: CdkDragEnd<Story>) {
     const origin = (e.source.boundaryElement as HTMLElement).getBoundingClientRect();
-    const correctedStoryPoint = Math.round((e.dropPoint.x - origin.x) / 100);
+    const correctedStoryPoint = Math.round((e.dropPoint.x - origin.x) / this.gridWidth);
 
     e.source.data.sp = (e.source.data.sp ?? e.source.data.orgSp)
-      + (e.distance.x / 100);
+      + (e.distance.x / this.gridWidth);
     e.source.data.y = (e.source.data.y ?? 0) + e.distance.y;
     this.stories().sort((a, b) => (a.y ?? 0) - (b.y ?? 0));
     applyY(this.stories());

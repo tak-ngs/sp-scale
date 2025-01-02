@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, HostBinding, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs';
 import { AddStoryDialogComponent } from './add-story-dialog/add-story-dialog.component';
+import { GRID_WIDTH_PX } from './app.config';
 import { ScaleComponent } from './scale/scale.component';
 import { Story } from './story';
 
@@ -22,6 +23,7 @@ import { Story } from './story';
 export class AppComponent {
   title = 'sp-scale';
   dialog = inject(MatDialog);
+
   storiesFromQuery = toSignal<Story[], Story[]>(
     inject(ActivatedRoute).queryParamMap.pipe(
       map(q => {
@@ -34,6 +36,9 @@ export class AppComponent {
     { initialValue: [] },
   );
   addedStories = signal<Story[]>([]);
+
+  @HostBinding('style')
+  gridWidth = `--grid-width: ${inject(GRID_WIDTH_PX)}px`;
 
   dummyStories: Story[] = [
     {
