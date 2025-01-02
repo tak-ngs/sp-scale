@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+}
+
+.header {
+  position: sticky;
+  top: 32px;
+  span {
+    font-size: 2rem;
+    position: absolute;
+    display: inline-flex;
+    background: #eee;
+    height: 3rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-50%);
+  }
+}
+
+.body {
+  display: flex;
+  .guide {
+    height: 100%;
+    box-sizing: border-box;
+    width: 100px;
+    border-left: 1px #cccccc solid;
+  }
+}

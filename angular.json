@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "sp-measure": {
+    "sp-scale": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -21,7 +21,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/sp-measure",
+            "outputPath": "dist/sp-scale",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "sp-measure:build:production"
+              "buildTarget": "sp-scale:build:production"
             },
             "development": {
-              "buildTarget": "sp-measure:build:development"
+              "buildTarget": "sp-scale:build:development"
             }
           },
           "defaultConfiguration": "development"

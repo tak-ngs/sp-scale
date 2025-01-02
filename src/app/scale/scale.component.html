@@ -1,0 +1,10 @@
+<div class="header">
+  @for (scale of scales; track $index) {
+    <span [style]="{ left: (scale * 100) + 'px' }">{{ scale }}</span>
+  }
+</div>
+<div class="body">
+  @for (guide of guidelines; track $index) {
+    <div class="guide"></div>
+  }
+</div>
