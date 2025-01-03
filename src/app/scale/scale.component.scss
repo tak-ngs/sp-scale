@@ -7,7 +7,16 @@
 
 .header {
   display: grid;
+  z-index: 1;
+  position: sticky;
+  top: -1px;
   grid-template-columns: repeat(25, var(--grid-width));
+  width: fit-content;
+  background-color: var(--mat-sys-surface);
+  animation: header-shadow linear both;
+  animation-timeline: view();
+  animation-range-start: contain calc(100% - 30px);
+  animation-range-end: exit 0%;
   .point {
     box-sizing: border-box;
     display: inline-block;
@@ -34,5 +43,16 @@
     box-sizing: border-box;
     height: 100%;
     border-left: 1px var(--mat-sys-outline-variant) solid;
+  }
+}
+
+@keyframes header-shadow {
+  from {
+    padding: 0 0;
+    box-shadow: none;
+  }
+  to {
+    padding: 8px 0;
+    box-shadow: var(--mat-sys-level3);
   }
 }
