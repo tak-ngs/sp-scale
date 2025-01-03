@@ -5,10 +5,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs';
-import { StoryFormDialogComponent } from './story-form-dialog/story-form-dialog.component';
 import { GRID_WIDTH_PX } from './app.config';
 import { ScaleComponent } from './scale/scale.component';
 import { Story } from './story';
+import { StoryFormDialogComponent } from './story-form-dialog/story-form-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -330,9 +330,9 @@ export class AppComponent {
 
   openAddDialog() {
     this.dialog.open<any, any, Story | undefined>(StoryFormDialogComponent, {
-      width: '60%',
+      width: '90%',
     }).afterClosed().subscribe(result => {
-      if (result == null) return;
+      if (result == null) { return; }
       this.addedStories.update(v => v.concat(result));
     });
   }

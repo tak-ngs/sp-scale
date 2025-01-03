@@ -8,9 +8,9 @@ describe('StoryFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StoryFormDialogComponent]
+      imports: [StoryFormDialogComponent],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(StoryFormDialogComponent);
     component = fixture.componentInstance;

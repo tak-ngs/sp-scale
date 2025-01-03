@@ -28,6 +28,10 @@ export class ScaleComponent {
 
   stories = input.required<Story[], Story[]>({ transform: applyY });
 
+  onEdited(original: Story, edited: Story) {
+    Object.assign(original, edited);
+  }
+
   onDroped(e: CdkDragEnd<Story>) {
     const origin = (e.source.boundaryElement as HTMLElement).getBoundingClientRect();
     const correctedStoryPoint = Math.round((e.dropPoint.x - origin.x) / this.gridWidth);

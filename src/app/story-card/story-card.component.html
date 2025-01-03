@@ -2,6 +2,20 @@
   class="handle"
   cdkDragHandle>
 </div>
+<button
+  mat-icon-button
+  class="menu"
+  [matMenuTriggerFor]="menu">
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button
+    mat-menu-item
+    (click)="editStory()">
+    Edit
+  </button>
+  <button mat-menu-item>Remove</button>
+</mat-menu>
 <mat-card appearance="outlined">
   <mat-card-header>
     <mat-card-title>

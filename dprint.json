@@ -1,6 +1,7 @@
 {
   "typescript": {
     "quoteStyle": "preferSingle",
+    "useBraces": "always",
     "module.sortImportDeclarations": "caseSensitive"
   },
   "json": {
