@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Story } from '../story';
 
 @Component({
-  selector: 'app-add-story-dialog',
+  selector: 'app-story-form-dialog',
   imports: [
     FormsModule,
     MatButtonModule,
@@ -15,10 +15,10 @@ import { Story } from '../story';
     MatFormFieldModule,
     MatInputModule,
   ],
-  templateUrl: './add-story-dialog.component.html',
-  styleUrl: './add-story-dialog.component.scss',
+  templateUrl: './story-form-dialog.component.html',
+  styleUrl: './story-form-dialog.component.scss',
 })
-export class AddStoryDialogComponent {
+export class StoryFormDialogComponent {
   story = signal<Story>({
     title: '',
     orgSp: NaN,

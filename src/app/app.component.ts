@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs';
-import { AddStoryDialogComponent } from './add-story-dialog/add-story-dialog.component';
+import { StoryFormDialogComponent } from './story-form-dialog/story-form-dialog.component';
 import { GRID_WIDTH_PX } from './app.config';
 import { ScaleComponent } from './scale/scale.component';
 import { Story } from './story';
@@ -329,7 +329,7 @@ export class AppComponent {
   }
 
   openAddDialog() {
-    this.dialog.open<any, any, Story | undefined>(AddStoryDialogComponent, {
+    this.dialog.open<any, any, Story | undefined>(StoryFormDialogComponent, {
       width: '60%',
     }).afterClosed().subscribe(result => {
       if (result == null) return;
