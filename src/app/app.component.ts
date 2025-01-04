@@ -2,8 +2,9 @@ import { Component, effect, HostBinding, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { map, tap } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 import { GRID_WIDTH_PX } from './app.config';
 import { ScaleComponent } from './scale/scale.component';
 import { StoryFormDialogComponent } from './story-form-dialog/story-form-dialog.component';
@@ -20,291 +21,22 @@ import { PrimitiveStory, stories } from './story.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'sp-scale';
-  dialog = inject(MatDialog);
+  #dialog = inject(MatDialog);
+  #snackbar = inject(MatSnackBar);
   stories = stories();
 
   @HostBinding('style')
   gridWidth = `--grid-width: ${inject(GRID_WIDTH_PX)}px`;
-
-  dummyStories: PrimitiveStory[] = [
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar Foo bar ',
-      orgSp: 3,
-      sp: 4,
-      link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-    {
-      title: 'ほげぴよほげぴよほげぴよほげぴよほげぴよ',
-      orgSp: 3,
-      // link: 'https://ja.wikipedia.org/wiki/Foobar',
-    },
-  ];
 
   constructor() {
     inject(ActivatedRoute).queryParamMap.pipe(
       map(q => {
         return JSON.parse(q.get('d') ?? '[]');
       }),
-      // TODO Error Handling
+      catchError(e => {
+        this.#snackbar.open('Error parsing data: Invalid query in the URL.', 'Close', { verticalPosition: 'top' });
+        return of([]);
+      }),
       tap(s => console.log(s)),
     ).subscribe(stories => {
       this.stories.add(...stories);
@@ -321,10 +53,14 @@ export class AppComponent {
     console.log(url.length);
 
     await navigator.clipboard.writeText(url);
+    this.#snackbar.open('Copied URL for this Story Point Scale', undefined, {
+      verticalPosition: 'top',
+      duration: 3000,
+    });
   }
 
   openAddDialog() {
-    this.dialog.open<any, any, PrimitiveStory | undefined>(StoryFormDialogComponent, {
+    this.#dialog.open<any, any, PrimitiveStory | undefined>(StoryFormDialogComponent, {
       width: '90%',
     }).afterClosed().subscribe(result => {
       if (result == null) { return; }

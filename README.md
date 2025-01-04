@@ -66,8 +66,8 @@ For more information on using the Angular CLI, including detailed command refere
 - [x] 編集
 - [x] story dataの保持整理
 - [x] 削除
-- [ ] queryパースエラーのハンドリング
-- [ ] URLコピーしたときにお知らせ
+- [x] queryパースエラーのハンドリング
+- [x] URLコピーしたときにお知らせ
 - [ ] デプロイ
 - [ ] 日本語化
 - [ ] dark theme 切り替え
