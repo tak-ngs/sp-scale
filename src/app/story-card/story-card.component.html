@@ -1,5 +1,9 @@
 <div
+  #handle
   class="handle"
+  tabindex="0"
+  (keydown.ArrowRight)="data.set({sp: data().spForScale + 1});$event.preventDefault()"
+  (keydown.ArrowLeft)="data.set({sp: data().spForScale - 1});$event.preventDefault()"
   cdkDragHandle>
 </div>
 <button

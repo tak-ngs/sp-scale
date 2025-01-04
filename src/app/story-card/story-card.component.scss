@@ -15,6 +15,12 @@
       box-shadow: var(--mat-sys-level2);
     }
   }
+  &:focus-within {
+    z-index: 2;
+    mat-card {
+      box-shadow: var(--mat-sys-level2);
+    }
+  }
 }
 :host-context(.cdk-drag-dragging) {
   z-index: 1;

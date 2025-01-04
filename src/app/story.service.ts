@@ -75,6 +75,7 @@ function story(s: PrimitiveStory): StorySignal {
     set: (s: Partial<PrimitiveStory>) => {
       // purify s
       const purified = extractPrimitiveStory(s);
+      purified.sp = purified.sp != null ? Math.min(Math.max(purified.sp, 1), 24) : undefined;
       model.update(org => ({ ...org, ...purified }));
     },
     setY: (y: number) => model.update(org => ({ ...org, y })),

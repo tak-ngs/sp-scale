@@ -1,5 +1,5 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { Component, inject, Input, output, TemplateRef } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, Input, output, TemplateRef, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -29,6 +29,12 @@ export class StoryCardComponent {
   removed = output<string>();
 
   #dialog = inject(MatDialog);
+  handle = viewChild.required<ElementRef<HTMLDivElement>>('handle');
+
+  @HostListener('click', ['$event'])
+  onClickCard() {
+    this.handle().nativeElement.focus();
+  }
 
   editStory() {
     this.#dialog.open<any, any, PrimitiveStory | undefined>(StoryFormDialogComponent, {
