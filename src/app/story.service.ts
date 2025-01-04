@@ -112,3 +112,18 @@ function extractPrimitiveStory(target: Partial<PrimitiveStory>): PrimitiveStory 
         : acc;
     }, {}) as PrimitiveStory;
 }
+export function validatePrimitiveStory(v: unknown): v is PrimitiveStory {
+  // check type
+  if (typeof v !== 'object' || v === null) { return false; }
+  // check required props
+  if (!('title' in v) || !('orgSp' in v)) { return false; }
+  // check title
+  if (typeof v.title !== 'string' || v.title.length === 0) { return false; }
+  // check orgSp
+  if (typeof v.orgSp !== 'number' || v.orgSp < 1 || v.orgSp > 24) { return false; }
+  // check sp
+  if ('sp' in v && (typeof v.sp !== 'number' || v.sp < 1 || v.sp > 24)) { return false; }
+  // check link
+  if ('link' in v && (typeof v.link !== 'string')) { return false; }
+  return true;
+}
