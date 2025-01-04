@@ -41,9 +41,6 @@ export class AppComponent {
     ).subscribe(stories => {
       this.stories.add(...stories);
     });
-    effect(() => {
-      console.log(this.stories().map(s => s()));
-    });
   }
 
   async copyURL() {
