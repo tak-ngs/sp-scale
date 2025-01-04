@@ -43,6 +43,7 @@ export class AppComponent {
         this.#snackbar.open('Error parsing data: Invalid query in the URL.', 'Close', { verticalPosition: 'top' });
         return of([]);
       }),
+      // TODO adaptor here
       map(stories => {
         const filtered = stories.filter((s, i) => {
           if (validatePrimitiveStory(s)) {
