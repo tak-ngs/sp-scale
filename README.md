@@ -1,5 +1,15 @@
 # SP Scale
 
+A web app for creating StoryPoint Scale, an agile practice.
+
+## How to use
+
+1. Add your Reference Story Card from [+] button at the bottom right.
+2. Grab the ● at the top left of the card and adjust its position.
+3. Finally, copy the URL by clicking [Get URL] and share it.
+
+Other operations can be performed from the button at the top right of the card.
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
 
 ## Development server

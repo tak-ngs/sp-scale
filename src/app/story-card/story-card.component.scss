@@ -58,6 +58,9 @@
   }
 }
 mat-card-title {
+  line-height: 1.8;
+  white-space: pre-line;
+
   a {
     color: var(--mat-sys-primary);
     text-decoration: none;
