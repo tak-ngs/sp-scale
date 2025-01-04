@@ -1,5 +1,8 @@
 {
   "typescript": {
+    "associations": [
+      "!**/*tsx"
+    ],
     "quoteStyle": "preferSingle",
     "useBraces": "always",
     "module.sortImportDeclarations": "caseSensitive"

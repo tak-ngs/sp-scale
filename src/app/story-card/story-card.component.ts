@@ -1,8 +1,8 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { Component, inject, Input, output } from '@angular/core';
+import { Component, inject, Input, output, TemplateRef } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { FnPipe } from '../misc/fn.pipe';
@@ -16,6 +16,7 @@ import { PrimitiveStory, StorySignal } from '../story.service';
     FnPipe,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatIconModule,
     MatMenuModule,
   ],
@@ -37,6 +38,10 @@ export class StoryCardComponent {
       if (result == null) { return; }
       this.data.set(result);
     });
+  }
+
+  removeStory(template: TemplateRef<any>) {
+    this.#dialog.open(template);
   }
 
   round = Math.round;

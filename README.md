@@ -65,7 +65,7 @@ For more information on using the Angular CLI, including detailed command refere
 - [x] グリッド幅をもっとかんたんに変えられるように
 - [x] 編集
 - [x] story dataの保持整理
-- [ ] 削除
+- [x] 削除
 - [ ] queryパースエラーのハンドリング
 - [ ] URLコピーしたときにお知らせ
 - [ ] デプロイ

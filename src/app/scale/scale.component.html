@@ -14,9 +14,10 @@
   @for (guide of guidelines; track $index) {
     <div class="guide"></div>
   }
-  @for (story of stories(); track story) {
+  @for (story of stories(); track story().id) {
     <app-story-card
       [data]="story"
+      (removed)="stories.remove($event)"
       [style]="{
       left: story().spForScale * gridWidth + 'px',
       top: story().y + 'px',

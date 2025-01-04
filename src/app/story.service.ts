@@ -7,7 +7,8 @@ function* idGenerator() {
   }
   return 'ERROR';
 }
-const nextId = () => idGenerator().next().value;
+const generator = idGenerator();
+const nextId = () => generator.next().value;
 
 export type StoriesModel = Signal<readonly StorySignal[]> & {
   // asReadonly: () => Signal<StorySignal[]>;
@@ -28,6 +29,8 @@ export function stories(): StoriesModel {
       return additional.map(s => s().id);
     },
     remove: (id: string) => {
+      console.log(id);
+      console.log(model().map(m => m().id));
       model.update(stories => stories.filter(m => m().id !== id));
     },
     refinePostion: () => {
