@@ -64,7 +64,7 @@ For more information on using the Angular CLI, including detailed command refere
 - [x] dark theme ready
 - [x] グリッド幅をもっとかんたんに変えられるように
 - [x] 編集
-- [ ] story dataの保持整理
+- [x] story dataの保持整理
 - [ ] 削除
 - [ ] queryパースエラーのハンドリング
 - [ ] URLコピーしたときにお知らせ

@@ -9,7 +9,7 @@
 </div>
 <div
   class="body"
-  [style]="{ height: (stories().at(-1)?.y ?? 0) + 200 + 'px' }"
+  [style]="{ height: maxY() + 200 + 'px' }"
   #body>
   @for (guide of guidelines; track $index) {
     <div class="guide"></div>
@@ -18,11 +18,11 @@
     <app-story-card
       [data]="story"
       [style]="{
-      left: ((story.sp ?? story.orgSp) * gridWidth) + 'px',
-      top: story.y + 'px',
+      left: story().spForScale * gridWidth + 'px',
+      top: story().y + 'px',
     }"
-      (edited)="onEdited(story, $event)"
       cdkDrag
+      [cdkDragConstrainPosition]=""
       [cdkDragData]="story"
       [cdkDragBoundary]="body"
       (cdkDragEnded)="onDroped($event)"

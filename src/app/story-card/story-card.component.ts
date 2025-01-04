@@ -1,17 +1,19 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, Input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { Story } from '../story';
+import { FnPipe } from '../misc/fn.pipe';
 import { StoryFormDialogComponent } from '../story-form-dialog/story-form-dialog.component';
+import { PrimitiveStory, StorySignal } from '../story.service';
 
 @Component({
   selector: 'app-story-card',
   imports: [
     DragDropModule,
+    FnPipe,
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -21,21 +23,21 @@ import { StoryFormDialogComponent } from '../story-form-dialog/story-form-dialog
   styleUrl: './story-card.component.scss',
 })
 export class StoryCardComponent {
-  data = input.required<StoryCard>();
-  edited = output<Story>();
-  removed = output<void>();
+  @Input()
+  data!: StorySignal;
+  removed = output<string>();
 
   #dialog = inject(MatDialog);
 
   editStory() {
-    this.#dialog.open<any, any, Story | undefined>(StoryFormDialogComponent, {
+    this.#dialog.open<any, any, PrimitiveStory | undefined>(StoryFormDialogComponent, {
       width: '90%',
       data: this.data(),
     }).afterClosed().subscribe(result => {
       if (result == null) { return; }
-      this.edited.emit(result);
+      this.data.set(result);
     });
   }
-}
 
-export type StoryCard = Story;
+  round = Math.round;
+}

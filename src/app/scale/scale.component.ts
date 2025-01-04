@@ -1,8 +1,8 @@
 import { CdkDrag, CdkDragEnd, DragDropModule, DragRef } from '@angular/cdk/drag-drop';
-import { Component, inject, input } from '@angular/core';
+import { Component, computed, ElementRef, inject, Input, viewChild } from '@angular/core';
 import { GRID_WIDTH_PX } from '../app.config';
-import { Story } from '../story';
 import { StoryCardComponent } from '../story-card/story-card.component';
+import { StoriesModel, StorySignal } from '../story.service';
 
 @Component({
   selector: 'app-scale',
@@ -25,33 +25,36 @@ export class ScaleComponent {
   ];
   guidelines = Array(25);
   gridWidth = inject(GRID_WIDTH_PX);
+  boundary = viewChild.required<ElementRef<HTMLElement>>('body');
 
-  stories = input.required<Story[], Story[]>({ transform: applyY });
+  @Input({ required: true })
+  stories!: StoriesModel;
 
-  onEdited(original: Story, edited: Story) {
-    Object.assign(original, edited);
-  }
+  maxY = computed(() => Math.max(...this.stories().map(s => s().y ?? 0)));
 
-  onDroped(e: CdkDragEnd<Story>) {
-    const origin = (e.source.boundaryElement as HTMLElement).getBoundingClientRect();
-    const correctedStoryPoint = Math.round((e.dropPoint.x - origin.x) / this.gridWidth);
+  constrainPosition: CdkDrag['constrainPosition'] = (pos, ref: DragRef<StorySignal>) => {
+    const originX = this.boundary().nativeElement.getBoundingClientRect().x;
+    const distance = pos.x - this.boundary().nativeElement.getBoundingClientRect().x;
+    console.log(distance);
 
-    e.source.data.sp = (e.source.data.sp ?? e.source.data.orgSp)
-      + (e.distance.x / this.gridWidth);
-    e.source.data.y = (e.source.data.y ?? 0) + e.distance.y;
-    this.stories().sort((a, b) => (a.y ?? 0) - (b.y ?? 0));
-    applyY(this.stories());
-    e.source.reset();
+    return {
+      x: originX + Math.round(distance / this.gridWidth) * this.gridWidth,
+      y: pos.y,
+    };
+  };
+  onDroped({ source, dropPoint, distance }: CdkDragEnd<StorySignal>) {
+    const origin = (source.boundaryElement as HTMLElement).getBoundingClientRect();
+    const correctedStoryPoint = Math.round((dropPoint.x - origin.x) / this.gridWidth);
+    const data = source.data();
+    source.element.nativeElement.style.transition = 'none';
+    source.data.set({ sp: data.spForScale + (distance.x / this.gridWidth) });
+    source.data.setY((data.y ?? 0) + distance.y);
+    source.reset();
+
     setTimeout(() => {
-      e.source.data.sp = correctedStoryPoint;
+      source.element.nativeElement.style.transition = '';
+      source.data.set({ sp: correctedStoryPoint });
+      this.stories.refinePostion();
     }, 0);
   }
-}
-
-function applyY(stories: Story[]): Story[] {
-  return stories.map((s, i) => {
-    s.y = (stories[i - 1]?.y ?? -36) + 36;
-    // s.sp = Math.round(Math.random() * 13);
-    return s;
-  });
 }

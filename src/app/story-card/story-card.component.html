@@ -29,7 +29,7 @@
       }
     </mat-card-title>
     <mat-card-subtitle>
-      SP: {{ data().sp ?? data().orgSp }}
+      SP: {{ data().spForScale | fn: round}}
       <span style="opacity: 0.5; float: right; padding-left: 8px">
         original SP: {{ data().orgSp }}
       </span>

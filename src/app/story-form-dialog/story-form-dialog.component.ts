@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Story } from '../story';
+import { PrimitiveStory } from '../story.service';
 
 @Component({
   selector: 'app-story-form-dialog',
@@ -19,8 +19,8 @@ import { Story } from '../story';
   styleUrl: './story-form-dialog.component.scss',
 })
 export class StoryFormDialogComponent {
-  data = inject<Story>(MAT_DIALOG_DATA, { optional: true });
-  story = signal<Story>({
+  data = inject<PrimitiveStory>(MAT_DIALOG_DATA, { optional: true });
+  story = signal<PrimitiveStory>({
     title: '',
     orgSp: NaN,
     ...this.data,
