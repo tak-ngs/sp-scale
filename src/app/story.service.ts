@@ -14,7 +14,7 @@ export type StoriesModel = Signal<readonly StorySignal[]> & {
   // asReadonly: () => Signal<StorySignal[]>;
   add: (...items: PrimitiveStory[]) => string[];
   remove: (id: string) => void;
-  encode: Signal<string>;
+  getPrimiteveStories: () => PrimitiveStory[];
   refinePostion: () => void;
 };
 
@@ -47,11 +47,7 @@ export function stories(): StoriesModel {
         return sorted;
       });
     },
-    encode: computed(() =>
-      encodeURIComponent(
-        JSON.stringify(model().map(m => extractPrimitiveStory(m()))),
-      )
-    ),
+    getPrimiteveStories: () => model().map(m => extractPrimitiveStory(m())),
   });
 }
 
@@ -122,8 +118,8 @@ export function validatePrimitiveStory(v: unknown): v is PrimitiveStory {
   // check orgSp
   if (typeof v.orgSp !== 'number' || v.orgSp < 1 || v.orgSp > 24) { return false; }
   // check sp
-  if ('sp' in v && (typeof v.sp !== 'number' || v.sp < 1 || v.sp > 24)) { return false; }
+  if ('sp' in v && v.sp != null && (typeof v.sp !== 'number' || v.sp < 1 || v.sp > 24)) { return false; }
   // check link
-  if ('link' in v && (typeof v.link !== 'string')) { return false; }
+  if ('link' in v && v.link != null && (typeof v.link !== 'string')) { return false; }
   return true;
 }

@@ -1,14 +1,17 @@
-import { Component, HostBinding, inject } from '@angular/core';
+import { Component, HostBinding, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { catchError, map, of, scan } from 'rxjs';
+import { catchError, map, of, scan, switchMap } from 'rxjs';
 import { GRID_WIDTH_PX } from './app.config';
 import { ScaleComponent } from './scale/scale.component';
 import { StoryFormDialogComponent } from './story-form-dialog/story-form-dialog.component';
 import { PrimitiveStory, stories, validatePrimitiveStory } from './story.service';
+declare function fetchItems(item: unknown[]): Promise<PrimitiveStory[]>;
+declare function toQueryData(story: PrimitiveStory): unknown;
 
 @Component({
   selector: 'app-root',
@@ -16,6 +19,7 @@ import { PrimitiveStory, stories, validatePrimitiveStory } from './story.service
     ScaleComponent,
     MatButtonModule,
     MatIconModule,
+    MatProgressBarModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -24,6 +28,7 @@ export class AppComponent {
   #dialog = inject(MatDialog);
   #snackbar = inject(MatSnackBar);
   stories = stories();
+  isProcessing = signal(false);
 
   @HostBinding('style')
   gridWidth = `--grid-width: ${inject(GRID_WIDTH_PX)}px`;
@@ -43,7 +48,12 @@ export class AppComponent {
         this.#snackbar.open('Error parsing data: Invalid query in the URL.', 'Close', { verticalPosition: 'top' });
         return of([]);
       }),
-      // TODO adaptor here
+      switchMap(items => {
+        this.isProcessing.set(true);
+        return items.length === 0
+          ? []
+          : fetchItems(items).finally(() => this.isProcessing.set(false));
+      }),
       map(stories => {
         const filtered = stories.filter((s, i) => {
           if (validatePrimitiveStory(s)) {
@@ -77,7 +87,10 @@ export class AppComponent {
   }
 
   async copyURL() {
-    const d = this.stories.encode();
+    const d = encodeURIComponent(JSON.stringify(
+      this.stories.getPrimiteveStories().map(toQueryData),
+    ));
+
     const url = [location.protocol, '//', location.host, location.pathname, '?d=', d].join('');
     console.log(url);
     console.log(url.length);

@@ -1,3 +1,7 @@
+@if (isProcessing()) {
+  <mat-progress-bar mode="query" />
+}
+
 <main>
   <app-scale [stories]="stories" />
 </main>

@@ -4,13 +4,50 @@ A web app for creating StoryPoint Scale, an agile practice.
 
 ## How to use
 
-1. Add your Reference Story Card from [+] button at the bottom right.
+1. Add your reference story card from [+] button at the bottom right.
 2. Grab the ● at the top left of the card and adjust its position.
 3. Finally, copy the URL by clicking [Get URL] and share it.
 
 Other operations can be performed from the button at the top right of the card.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+## Adaptor
+
+SP Scale shares all the data packed into the URL query.
+The maximum length of a URL is limited by browsers and servers, so the number of reference stories is limited to a dozen or so.
+
+On the other hand, you can also include minimal information in the URL query and retrieve other data from your project management system api.
+
+### Make own Adapter
+
+1: Create `adapter.js` and implement the following two functions:
+
+```ts
+/** fetch data from external project management system */
+function fetchItems(items: T[]): Promise<PrimitiveItem[]>;
+/** convert data to include in a sharing URL query */
+function toQueryData(story: PrimitiveStory): T;
+```
+
+`T` is the structure of the data to be included in the URL query.
+
+`PrimitiveStory` is as follows:
+
+```ts
+interface PrimitiveStory {
+  title: string;
+  /** original story point */
+  orgSp: number;
+  /** story point for the scale */
+  sp?: number;
+  link?: string;
+}
+```
+
+2: Mount the created file to `/usr/share/nginx/html/adapter.js` and start the SP Scale docker image.
+
+```bash
+docker run -p 80:80 -v ./your_adapter.js:/usr/share/nginx/html/adapter.js:ro sp-scale
+```
 
 ## Development server
 
