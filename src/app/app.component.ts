@@ -50,9 +50,14 @@ export class AppComponent {
       }),
       switchMap(items => {
         this.isProcessing.set(true);
-        return items.length === 0
-          ? []
-          : fetchItems(items).finally(() => this.isProcessing.set(false));
+        return (items.length === 0 ? Promise.resolve([]) : fetchItems(items))
+          .catch(e => {
+            this.#snackbar.open(`Error in adaptor: ${e}`, 'Close', {
+              verticalPosition: 'top',
+            });
+            return [];
+          })
+          .finally(() => this.isProcessing.set(false));
       }),
       map(stories => {
         const filtered = stories.filter((s, i) => {

@@ -74,7 +74,7 @@ function story(s: PrimitiveStory): StorySignal {
       purified.sp = purified.sp != null ? Math.min(Math.max(purified.sp, 1), 24) : undefined;
       model.update(org => ({ ...org, ...purified }));
     },
-    setY: (y: number) => model.update(org => ({ ...org, y })),
+    setY: (y: number) => model.update(org => ({ ...org, y: Math.max(y, 0) })),
   });
 }
 
