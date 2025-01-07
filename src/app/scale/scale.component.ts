@@ -44,7 +44,7 @@ export class ScaleComponent {
   };
   onDroped({ source, dropPoint, distance }: CdkDragEnd<StorySignal>) {
     const origin = (source.boundaryElement as HTMLElement).getBoundingClientRect();
-    const correctedStoryPoint = Math.round((dropPoint.x - origin.x) / this.gridWidth);
+    const correctedStoryPoint = Math.round((dropPoint.x - origin.x) / (this.gridWidth / 2)) / 2;
     const data = source.data();
     source.element.nativeElement.style.transition = 'none';
     source.data.set({ sp: data.spForScale + (distance.x / this.gridWidth) });

@@ -50,5 +50,5 @@ export class StoryCardComponent {
     this.#dialog.open(template);
   }
 
-  round = Math.round;
+  round = (v: number) => Math.round(v * 2) / 2;
 }
