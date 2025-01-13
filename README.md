@@ -10,7 +10,13 @@ A web app for creating StoryPoint Scale, an agile practice.
 
 Other operations can be performed from the button at the top right of the card.
 
-## Adaptor
+## Install
+
+```sh
+docker run -p 80:80 takngs/sp-scale
+```
+
+### Adaptor
 
 SP Scale shares all the data packed into the URL query.
 The maximum length of a URL is limited by browsers and servers, so the number of reference stories is limited to a dozen or so.

@@ -5,8 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:docker": "docker build ./ -t takngs/sp-scale",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "publish:docker": "npm run build:docker && docker push takngs/sp-scale"
   },
   "private": true,
   "dependencies": {
