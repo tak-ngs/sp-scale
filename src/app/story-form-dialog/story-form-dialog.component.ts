@@ -22,10 +22,9 @@ export class StoryFormDialogComponent {
   data = inject<PrimitiveStory>(MAT_DIALOG_DATA, { optional: true });
   story = signal<PrimitiveStory>({
     title: '',
-    orgSp: NaN,
     ...this.data,
   });
   valid = computed(() => {
-    return this.story().title.length > 0 && this.story().orgSp;
+    return this.story().title.length > 0;
   });
 }

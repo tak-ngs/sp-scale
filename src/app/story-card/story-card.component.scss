@@ -62,6 +62,7 @@ mat-card-title {
   white-space: pre-line;
 
   a {
+    display: block;
     color: var(--mat-sys-primary);
     text-decoration: none;
   }

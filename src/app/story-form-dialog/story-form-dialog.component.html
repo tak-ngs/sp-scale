@@ -11,15 +11,14 @@
       required></textarea>
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Original Story Point</mat-label>
+    <mat-label>Story Point</mat-label>
     <input
       #spInput
       matInput
       type="number"
-      [(ngModel)]="story().orgSp"
-      required
+      [(ngModel)]="story().sp"
       step="1"
-      min="1"
+      min="0"
       max="24">
   </mat-form-field>
   <mat-form-field>

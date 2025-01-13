@@ -81,7 +81,7 @@ export class AppComponent {
 
               Other operations can be performed from the button at the top right of the card.
             `.trim(),
-            orgSp: 1,
+            sp: 1,
           });
       }),
       scan((pre, cur) => {

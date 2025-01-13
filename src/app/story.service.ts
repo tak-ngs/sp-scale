@@ -64,22 +64,20 @@ function story(s: PrimitiveStory): StorySignal {
   });
   const sotrySig = computed(() => ({
     ...model(),
-    spForScale: model().sp ?? model().orgSp,
+    spForScale: model().sp ?? 0,
   }));
 
   return Object.assign(sotrySig, {
     set: (s: Partial<PrimitiveStory>) => {
       // purify s
       const purified = extractPrimitiveStory(s);
-      purified.sp = purified.sp != null ? Math.min(Math.max(purified.sp, 1), 24) : undefined;
+      purified.sp = purified.sp != null ? Math.min(Math.max(purified.sp, 0), 24) : undefined;
       model.update(org => ({ ...org, ...purified }));
     },
     setY: (y: number) => model.update(org => ({ ...org, y: Math.max(y, 0) })),
   });
 }
 
-const a = story({ title: '', orgSp: 1 });
-a().y;
 export interface ManagementInfo {
   id: string;
   y: number;
@@ -87,8 +85,6 @@ export interface ManagementInfo {
 
 export interface PrimitiveStory {
   title: string;
-  /** original story point */
-  orgSp: number;
   /** story point for the scale */
   sp?: number;
   link?: string;
@@ -99,7 +95,7 @@ export interface AdditionalStoryInfo {
 
 export type Story = PrimitiveStory & AdditionalStoryInfo & ManagementInfo;
 
-const reference: Required<PrimitiveStory> = { title: '', link: '', sp: 0, orgSp: 0 };
+const reference: Required<PrimitiveStory> = { title: '', link: '', sp: 0 };
 function extractPrimitiveStory(target: Partial<PrimitiveStory>): PrimitiveStory {
   return (Object.keys(reference) as (keyof PrimitiveStory)[])
     .reduce((acc, key) => {
@@ -112,11 +108,9 @@ export function validatePrimitiveStory(v: unknown): v is PrimitiveStory {
   // check type
   if (typeof v !== 'object' || v === null) { return false; }
   // check required props
-  if (!('title' in v) || !('orgSp' in v)) { return false; }
+  if (!('title' in v)) { return false; }
   // check title
   if (typeof v.title !== 'string' || v.title.length === 0) { return false; }
-  // check orgSp
-  if (typeof v.orgSp !== 'number' || v.orgSp < 1 || v.orgSp > 24) { return false; }
   // check sp
   if ('sp' in v && v.sp != null && (typeof v.sp !== 'number' || v.sp < 1 || v.sp > 24)) { return false; }
   // check link
